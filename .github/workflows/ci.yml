@@ -1,25 +1,27 @@
-name: GitHub Actions Build and Deploy Demo
-on:
-  push:
-    branches:
-      - master
+name: GitHub Action Demo
+on: [push]
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+    # copy git 仓库到虚拟机上
+    - name: 'Checkout codes'
+      uses: actions/checkout@v1
+    # 获取最新一条提交的git log  
+    - name: Get Git Log
+      id: git_log
+      uses: Edisonboy/latest-git-log-action@main
       with:
-        node-version: 20
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Install and Build
-      run: |
-        npm install
-        npm run-script build
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+        tag: origin/master
+    # 发送邮件    
+    - name: Send email
+      uses: dawidd6/action-send-mail@v3
       with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: build
+        server_address: smtp.qq.com
+        server_port: 465
+        username: ${{secrets.MAIL_USERNAME}}
+        password: ${{secrets.MAIL_PASSWORD}}
+        subject: Github Actions job result
+        to: ${{secrets.MAIL_TOUSERNAME}}
+        from: ${{secrets.MAIL_USERNAME}}
+        body: ${{github.repository}} push log : ${{steps.git_log.outputs.log}}
