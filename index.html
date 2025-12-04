@@ -62,7 +62,7 @@
 
       {
         const loader = new THREE.TextureLoader()
-        const texture = loader.load('./1.jpg')
+        const texture = loader.load('./img/1.jpg')
         texture.wrapS = THREE.RepeatWrapping
         texture.wrapT = THREE.RepeatWrapping
         texture.magFilter = THREE.NearestFilter
@@ -82,7 +82,7 @@
       {
         // 地板
         const loader = new THREE.TextureLoader()
-        const texture = loader.load('./2.jpg')
+        const texture = loader.load('./img/2.jpg')
         texture.wrapS = THREE.RepeatWrapping
         texture.wrapT = THREE.RepeatWrapping
         texture.magFilter = THREE.NearestFilter
@@ -198,7 +198,7 @@
           function roof() {
             const roofGeometry = new THREE.BoxGeometry(200, 320, 10)
             const loader = new THREE.TextureLoader()
-            const roofTexture = loader.load('./3.jpg')
+            const roofTexture = loader.load('./img/3.jpg')
             roofTexture.wrapS = roofTexture.wrapT = THREE.RepeatWrapping
             roofTexture.repeat.set(2, 2)
             const textureMaterial = new THREE.MeshBasicMaterial({ map: roofTexture })
@@ -264,7 +264,7 @@
 
           // 门
           const doorGeometry = new THREE.BoxGeometry(50, 90, 4) //门的形状
-          const doorTexture = new THREE.TextureLoader().load('./4.jpg')
+          const doorTexture = new THREE.TextureLoader().load('./img/4.jpg')
           const doorMaterial = new THREE.MeshLambertMaterial({ map: doorTexture }) //门的材质
           const door = new THREE.Mesh(doorGeometry, doorMaterial)
 
